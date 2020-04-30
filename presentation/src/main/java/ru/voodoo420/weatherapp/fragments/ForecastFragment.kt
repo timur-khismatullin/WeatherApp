@@ -5,13 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_forecast.*
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.weatherapp.adapters.ForecastAdapter
-import ru.voodoo420.weatherapp.entities.ForecastUnit
+import ru.voodoo420.weatherapp.viewmodels.ForecastViewModel
 
 class ForecastFragment : Fragment() {
+
+    private val homeViewModel by viewModels<ForecastViewModel>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_forecast, container, false)
     }
@@ -19,11 +24,11 @@ class ForecastFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         forecast_recycler.layoutManager = LinearLayoutManager(this.context)
+
         val adapter = ForecastAdapter()
-        adapter.setData(listOf(
-            ForecastUnit("today", 12.0, "123"),
-            ForecastUnit("tommorow", 15.0, "123")
-        ))
+        homeViewModel.viewState.observe(viewLifecycleOwner, Observer {
+            adapter.setData(it)
+        })
         forecast_recycler.adapter = adapter
     }
 }

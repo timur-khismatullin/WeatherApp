@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import ru.voodoo420.weatherapp.R
-import ru.voodoo420.weatherapp.entities.ForecastUnit
+import ru.voodoo420.domain.entities.ForecastUnit
 import kotlinx.android.synthetic.main.item_forecast_unit.*
 
 import kotlin.collections.ArrayList
