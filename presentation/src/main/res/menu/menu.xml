@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/forecastFragment"
+        android:title="@string/forecast"
+        android:menuCategory="secondary"
+        android:icon="@drawable/ic_forecast"/>
+    <item
+        android:id="@+id/citiesFragment"
+        android:title="@string/cities"
+        android:menuCategory="secondary"
+        android:icon="@drawable/ic_cities"/>
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="@string/settings"
+        android:menuCategory="secondary"
+        android:icon="@drawable/ic_settings"/>
+</menu>
