@@ -3,4 +3,6 @@
     <string name="forecast">forecast</string>
     <string name="cities">cities</string>
     <string name="settings">settings</string>
+    <string name="date">date</string>
+    <string name="temperature">temperature</string>
 </resources>

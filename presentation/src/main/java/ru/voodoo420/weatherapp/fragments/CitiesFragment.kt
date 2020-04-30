@@ -1,4 +1,4 @@
-package ru.voodoo420.weatherapp.ui.fragments
+package ru.voodoo420.weatherapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

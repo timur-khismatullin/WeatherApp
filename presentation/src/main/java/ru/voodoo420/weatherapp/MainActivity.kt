@@ -1,4 +1,4 @@
-package ru.voodoo420.weatherapp.ui
+package ru.voodoo420.weatherapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,7 +12,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findNavController(R.id.container)
         bottom_nav.setupWithNavController(findNavController(R.id.container))
     }
 }
