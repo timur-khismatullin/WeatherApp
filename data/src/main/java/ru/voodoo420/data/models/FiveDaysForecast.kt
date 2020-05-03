@@ -1,4 +1,4 @@
-package ru.voodoo420.weatherapp.entities.models
+package ru.voodoo420.data.models
 
 data class FiveDaysForecast(
     val city: City,
