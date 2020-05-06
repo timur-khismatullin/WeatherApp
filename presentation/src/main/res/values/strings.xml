@@ -6,4 +6,10 @@
     <string name="date">date</string>
     <string name="temperature">temperature</string>
     <string name="weather_icon">weather icon</string>
+    <string name="humidity">humidity %d%s</string>
+    <string name="wind">wind %.02f %s</string>
+    <string name="temp_min">min %.02f</string>
+    <string name="temp_max">max %.02f</string>
+    <string name="temp">%.02fC°</string>
+    <string name="city">city</string>
 </resources>

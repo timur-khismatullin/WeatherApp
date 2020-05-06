@@ -6,6 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import ru.voodoo420.data.models.CurrentWeatherModel
 import ru.voodoo420.data.models.FiveDaysForecast
 
 interface OpenWeatherMapApiService {
@@ -17,6 +18,14 @@ interface OpenWeatherMapApiService {
         @Query("appid") keyApi: String,
         @Query("units") units: String
     ): FiveDaysForecast
+
+    @GET("weather")
+    suspend fun loadCurrentWeather(
+        @Query("lat") lat: Float,
+        @Query("lon") lng: Float,
+        @Query("appid") keyApi: String,
+        @Query("units") units: String
+    ): CurrentWeatherModel
 
 
     companion object Factory{

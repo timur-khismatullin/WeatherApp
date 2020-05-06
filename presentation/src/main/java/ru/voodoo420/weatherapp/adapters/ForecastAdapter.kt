@@ -31,14 +31,12 @@ class ForecastAdapter : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(forecastUnits[position])
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer{
-        fun bind(unit: ForecastUnit){
-            fc_unit_date.text = unit.date
-            fc_unit_temperature.text = unit.temperature.toString()
-            val icon = unit.icon
-
+        fun bind(unit: ForecastUnit) = with(unit) {
             Glide.with(containerView)
                 .load("https://openweathermap.org/img/wn/${icon}@2x.png")
                 .into(fc_unit_icon)
+            fc_unit_date.text = date
+            fc_unit_temperature.text = temperature.toString()
         }
     }
 }

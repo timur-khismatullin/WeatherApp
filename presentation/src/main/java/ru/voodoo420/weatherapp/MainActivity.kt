@@ -13,6 +13,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottom_nav.setupWithNavController(findNavController(R.id.container))
-        setSupportActionBar(toolbar)
     }
 }

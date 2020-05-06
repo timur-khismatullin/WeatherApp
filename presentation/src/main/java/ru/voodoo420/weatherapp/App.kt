@@ -3,6 +3,7 @@ package ru.voodoo420.weatherapp
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import ru.voodoo420.weatherapp.di.currentWeatherModule
 import ru.voodoo420.weatherapp.di.forecastModule
 import ru.voodoo420.weatherapp.di.repositoryModule
 import ru.voodoo420.weatherapp.di.useCasesModule
@@ -15,7 +16,7 @@ class App : Application(){
 
         startKoin {
             androidContext(this@App)
-            modules(listOf(repositoryModule, useCasesModule, forecastModule ))
+            modules(listOf(repositoryModule, useCasesModule, forecastModule, currentWeatherModule ))
         }
     }
 }
