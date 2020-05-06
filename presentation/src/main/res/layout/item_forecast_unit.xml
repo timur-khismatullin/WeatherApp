@@ -2,7 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="2dp"
+    app:cardBackgroundColor="#1C484848">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,28 +14,30 @@
 
         <TextView
             android:id="@+id/fc_unit_date"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/date"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/fc_unit_temperature"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="#FFFFFF"
             android:text="@string/temperature"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/fc_unit_icon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:gravity="center"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:contentDescription="@string/weather_icon" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

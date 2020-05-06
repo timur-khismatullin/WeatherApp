@@ -5,4 +5,5 @@
     <string name="settings">settings</string>
     <string name="date">date</string>
     <string name="temperature">temperature</string>
+    <string name="weather_icon">weather icon</string>
 </resources>

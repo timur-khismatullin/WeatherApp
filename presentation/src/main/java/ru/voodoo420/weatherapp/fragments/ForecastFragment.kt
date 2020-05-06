@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_forecast.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.voodoo420.weatherapp.MainActivity
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.weatherapp.adapters.ForecastAdapter
 import ru.voodoo420.weatherapp.viewmodels.ForecastViewModel
@@ -24,6 +26,8 @@ class ForecastFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         forecast_recycler.layoutManager = LinearLayoutManager(this.context)
+
+        (activity as MainActivity).supportActionBar?.title = "Kazan"
 
         val adapter = ForecastAdapter()
         forecastViewModel.viewState.observe(viewLifecycleOwner, Observer {

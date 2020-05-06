@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.domain.entities.ForecastUnit
@@ -33,7 +34,11 @@ class ForecastAdapter : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
         fun bind(unit: ForecastUnit){
             fc_unit_date.text = unit.date
             fc_unit_temperature.text = unit.temperature.toString()
-            fc_unit_icon.setImageResource(R.drawable.ic_snow_temp)
+            val icon = unit.icon
+
+            Glide.with(containerView)
+                .load("https://openweathermap.org/img/wn/${icon}@2x.png")
+                .into(fc_unit_icon)
         }
     }
 }
