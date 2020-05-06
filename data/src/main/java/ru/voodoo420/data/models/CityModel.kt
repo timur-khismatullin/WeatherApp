@@ -1,6 +1,6 @@
 package ru.voodoo420.data.models
 
-data class City(
+data class CityModel(
     val coord: Coord,
     val country: String,
     val id: Int,

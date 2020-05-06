@@ -9,15 +9,37 @@
         android:id="@+id/forecastFragment"
         android:name="ru.voodoo420.weatherapp.fragments.ForecastFragment"
         android:label="ForecastFragment"
-        tools:layout="@layout/fragment_forecast"/>
+        tools:layout="@layout/fragment_forecast" />
     <fragment
         android:id="@+id/citiesFragment"
         android:name="ru.voodoo420.weatherapp.fragments.CitiesFragment"
         android:label="CitiesFragment"
-        tools:layout="@layout/fragment_cities"/>
+        tools:layout="@layout/fragment_cities" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.voodoo420.weatherapp.fragments.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings"/>
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/currentWeatherFragment"
+        android:name="ru.voodoo420.weatherapp.fragments.CurrentWeatherFragment"
+        android:label="CurrentWeatherFragment"
+        tools:layout="@layout/fragment_current_weather">
+        <argument
+            android:name="lat"
+            android:defaultValue="0.0"
+            app:argType="float" />
+        <argument
+            android:name="lon"
+            android:defaultValue="0.0"
+            app:argType="float" />
+    </fragment>
+
+    <action
+        android:id="@+id/to_currentWeather"
+        app:destination="@id/currentWeatherFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 </navigation>

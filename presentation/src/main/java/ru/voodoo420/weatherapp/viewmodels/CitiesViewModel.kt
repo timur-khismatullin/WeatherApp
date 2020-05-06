@@ -6,17 +6,17 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.voodoo420.domain.entities.City
 import ru.voodoo420.domain.entities.CurrentWeather
-import ru.voodoo420.domain.usecases.GetCurrentWeatherByCoordUseCase
+import ru.voodoo420.domain.usecases.GetCitiesWeatherUseCase
 
-class CurrentWeatherViewModel(getCurrentWeather: GetCurrentWeatherByCoordUseCase) : ViewModel(){
-
-    val viewState = MutableLiveData<CurrentWeather>()
+class CitiesViewModel(getCities: GetCitiesWeatherUseCase) : ViewModel() {
+    val viewState = MutableLiveData<List<Pair<City, CurrentWeather>>>()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main){
-                viewState.value = getCurrentWeather.execute()
+                viewState.value = getCities.getCitiesWeather()
             }
         }
     }

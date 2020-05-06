@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import ru.voodoo420.domain.entities.ForecastUnit
 import ru.voodoo420.domain.usecases.GetForecastByCoordUseCase
 
-class ForecastViewModel(private val getForecast: GetForecastByCoordUseCase) : ViewModel(){
+class ForecastViewModel(getForecast: GetForecastByCoordUseCase) : ViewModel(){
 
     val viewState = MutableLiveData<List<ForecastUnit>>()
 

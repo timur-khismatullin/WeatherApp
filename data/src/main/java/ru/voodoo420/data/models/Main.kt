@@ -1,13 +1,13 @@
 package ru.voodoo420.data.models
 
 data class Main(
-    val feels_like: Double,
+    val feels_like: Float,
     val grnd_level: Int,
     val humidity: Int,
     val pressure: Int,
     val sea_level: Int,
-    val temp: Double,
-    val temp_kf: Double,
-    val temp_max: Double,
-    val temp_min: Double
+    val temp: Float,
+    val temp_kf: Float,
+    val temp_max: Float,
+    val temp_min: Float
 )
