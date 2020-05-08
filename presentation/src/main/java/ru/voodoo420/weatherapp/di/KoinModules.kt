@@ -16,6 +16,7 @@ import ru.voodoo420.domain.usecases.*
 import ru.voodoo420.weatherapp.viewmodels.CitiesViewModel
 import ru.voodoo420.weatherapp.viewmodels.CurrentWeatherViewModel
 import ru.voodoo420.weatherapp.viewmodels.ForecastViewModel
+import ru.voodoo420.weatherapp.viewmodels.MainActivityViewModel
 
 val repositoriesModule = module {
     single { RoomAppDatabase.buildDatabase(androidContext()) }
@@ -37,6 +38,7 @@ val viewModelsModule = module {
     viewModel { ForecastViewModel(get(),get()) }
     viewModel { CurrentWeatherViewModel(get(), get(), get()) }
     viewModel { CitiesViewModel(get(), get()) }
+    viewModel { MainActivityViewModel(get()) }
 }
 
 val modules = listOf(repositoriesModule, useCasesModule, viewModelsModule)

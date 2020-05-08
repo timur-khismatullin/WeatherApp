@@ -70,6 +70,7 @@
         android:textColor="@color/white"
         android:textSize="28sp"
         android:text="@string/city"
+        android:maxLength="15"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/current_icon"
         app:layout_constraintHorizontal_chainStyle="spread"
