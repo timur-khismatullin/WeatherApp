@@ -17,18 +17,26 @@ class ForecastFragment : Fragment() {
 
     private val forecastViewModel: ForecastViewModel by viewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_forecast, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        forecast_recycler.layoutManager = LinearLayoutManager(this.context)
+        initAdapterRecycler()
+    }
 
+    private fun initAdapterRecycler() {
         val adapter = ForecastAdapter()
         forecastViewModel.viewState.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
+
+        forecast_recycler.layoutManager = LinearLayoutManager(this.context)
         forecast_recycler.adapter = adapter
     }
 }

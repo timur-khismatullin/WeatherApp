@@ -1,7 +1,7 @@
 package ru.voodoo420.data.converters
 
-import ru.voodoo420.data.models.CurrentWeatherModel
-import ru.voodoo420.data.models.FiveDaysForecast
+import ru.voodoo420.data.remote.models.CurrentWeatherModel
+import ru.voodoo420.data.remote.models.FiveDaysForecast
 import ru.voodoo420.domain.entities.CurrentWeather
 import ru.voodoo420.domain.entities.ForecastUnit
 

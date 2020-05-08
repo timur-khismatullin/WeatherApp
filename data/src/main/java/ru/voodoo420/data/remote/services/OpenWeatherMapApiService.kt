@@ -6,8 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.voodoo420.data.models.CurrentWeatherModel
-import ru.voodoo420.data.models.FiveDaysForecast
+import ru.voodoo420.data.remote.models.CurrentWeatherModel
+import ru.voodoo420.data.remote.models.FiveDaysForecast
 
 interface OpenWeatherMapApiService {
 

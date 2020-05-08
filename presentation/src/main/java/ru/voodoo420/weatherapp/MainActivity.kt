@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.voodoo420.weatherapp.R
 
 class MainActivity : AppCompatActivity() {
 

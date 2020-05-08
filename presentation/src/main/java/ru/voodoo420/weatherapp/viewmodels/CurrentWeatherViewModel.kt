@@ -4,20 +4,39 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.voodoo420.domain.entities.Coord
 import ru.voodoo420.domain.entities.CurrentWeather
 import ru.voodoo420.domain.usecases.GetCurrentWeatherByCoordUseCase
+import ru.voodoo420.domain.usecases.GetObservableCoordFromDbUseCase
+import ru.voodoo420.domain.usecases.SetUtilValuesToDbUseCase
 
-class CurrentWeatherViewModel(getCurrentWeather: GetCurrentWeatherByCoordUseCase) : ViewModel(){
+class CurrentWeatherViewModel(
+    getCurrentWeather: GetCurrentWeatherByCoordUseCase,
+    getObservableCoordFromDbUseCase: GetObservableCoordFromDbUseCase,
+    private val setCoordUseCase: SetUtilValuesToDbUseCase
+) : ViewModel() {
 
+    private val coord = MutableLiveData<Coord>()
     val viewState = MutableLiveData<CurrentWeather>()
+
+    private suspend fun setStartData(coord: Coord) {
+        setCoordUseCase.setStartData(coord)
+    }
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main){
-                viewState.value = getCurrentWeather.execute()
-            }
+            setStartData(Coord(55.7887f, 49.1221f)) //todo
+            getObservableCoordFromDbUseCase.getCoord()
+                .collect {
+                    withContext(Dispatchers.Main) {
+                        coord.value = Coord(it.lat, it.lon)
+                        viewState.value =
+                            getCurrentWeather.execute(Coord(coord.value!!.lat, coord.value!!.lon))
+                    }
+                }
         }
     }
 }

@@ -1,28 +1,31 @@
 package ru.voodoo420.domain.usecases
 
-import ru.voodoo420.domain.entities.City
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import ru.voodoo420.domain.entities.CityCurrentWeather
+import ru.voodoo420.domain.entities.Coord
 import ru.voodoo420.domain.entities.CurrentWeather
 import ru.voodoo420.domain.repositories.CitiesRepository
 import ru.voodoo420.domain.repositories.WeatherRepository
 
-class GetCitiesWeatherUseCase(private val citiesRepository: CitiesRepository, private val weatherRepository: WeatherRepository) {
+class GetCitiesWeatherUseCase(
+    private val citiesRepository: CitiesRepository,
+    private val weatherRepository: WeatherRepository
+) {
 
-    private suspend fun getCities(): List<City>{
-        return citiesRepository.loadCities()
+    private suspend fun getCurrentWeather(coord: Coord): CurrentWeather {
+        return weatherRepository.loadCurrentWeather(coord)
     }
 
-    private suspend fun getCurrentWeather(lat: Float, lon: Float) : CurrentWeather {
-        return weatherRepository.loadCurrentWeather(lat, lon)
-    }
-
-    suspend fun getCitiesWeather(): List<Pair<City, CurrentWeather>>{
-        val citiesWeatherList = mutableListOf<Pair<City, CurrentWeather>>()
-        val cities = getCities()
-        for (i in cities){
-            val lat = i.lat
-            val lon = i.lon
-            citiesWeatherList.add(Pair(i, getCurrentWeather(lat, lon)))
+    fun getCitiesWeather(): Flow<List<CityCurrentWeather>> = flow {
+        citiesRepository.loadCities().collect {
+            val cityList = mutableListOf<CityCurrentWeather>()
+            //todo optimize: parallel requests
+            it.forEach { city ->
+                cityList.add(CityCurrentWeather(city, getCurrentWeather(city.coord)))
+            }
+            emit(cityList)
         }
-        return citiesWeatherList
     }
 }

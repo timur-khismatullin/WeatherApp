@@ -1,10 +1,10 @@
-package ru.voodoo420.data.models
+package ru.voodoo420.data.remote.models
 
 data class CurrentWeatherModel(
     val base: String,
     val clouds: Clouds,
     val cod: Int,
-    val coord: Coord,
+    val coordModel: CoordModel,
     val dt: Int,
     val id: Int,
     val main: Main,

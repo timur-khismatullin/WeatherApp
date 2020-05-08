@@ -1,4 +1,4 @@
-package ru.voodoo420.data.models
+package ru.voodoo420.data.remote.models
 
 data class Main(
     val feels_like: Float,
