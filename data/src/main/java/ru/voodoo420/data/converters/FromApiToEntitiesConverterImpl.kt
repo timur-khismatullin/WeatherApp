@@ -38,7 +38,9 @@ class FromApiToEntitiesConverterImpl : FromApiToEntitiesConverter {
             main.humidity,
             wind.speed,
             main.temp_min,
-            main.temp_max
+            main.temp_max,
+            main.feels_like,
+            weather[0].description
         )
     }
 }

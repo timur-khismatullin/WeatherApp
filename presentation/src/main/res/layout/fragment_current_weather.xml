@@ -46,20 +46,20 @@
         app:layout_constraintTop_toBottomOf="@+id/current_icon">
 
         <TextView
-            android:id="@+id/current_temp_min"
+            android:id="@+id/current_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/temp_min" />
+            android:text="@string/description" />
 
         <TextView
-            android:id="@+id/current_temp_max"
+            android:id="@+id/feels_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/temp_max" />
+            android:text="@string/feels" />
     </LinearLayout>
 
     <TextView
