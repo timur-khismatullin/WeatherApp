@@ -9,7 +9,7 @@
         android:id="@+id/forecast_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_forecast_unit"/>
+        tools:listitem="@layout/item_forecast"/>
 
     <ProgressBar
         android:id="@+id/forecast_loading"

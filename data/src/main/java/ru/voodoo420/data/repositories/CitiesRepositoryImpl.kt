@@ -32,14 +32,13 @@ class CitiesRepositoryImpl(
     }
 
     override suspend fun setUtilValues(coord: Coord) {
-        val utilValues = UtilValues(1, coord.lat, coord.lon, 123, false) //todo
+        val utilValues = UtilValues(1, coord.lat, coord.lon, 123) //todo
         roomAppDatabase.utilValuesDao().insert(utilValues)
     }
 
     override suspend fun setStartData(coord: Coord) {
         if (!context.getDatabasePath("WeatherApp.db").exists()) {
-            val utilValues = UtilValues(1, coord.lat, coord.lon, 123, false) //todo
-            roomAppDatabase.utilValuesDao().insert(utilValues)
+            setUtilValues(coord)
             roomAppDatabase.citiesDao().insertList(CityList.cities)
         }
     }

@@ -9,15 +9,36 @@ class FromApiToEntitiesConverterImpl : FromApiToEntitiesConverter {
 
     override fun convertForecast(model: FiveDaysForecast): List<ForecastUnit> {
         val forecastList = mutableListOf<ForecastUnit>()
-        model.list.forEach{
-            with(it){
-                forecastList.add(ForecastUnit(dt_txt, main.temp, weather[0].icon))
+        model.list.forEach {
+            with(it) {
+                forecastList.add(
+                    ForecastUnit(
+                        dt_txt,
+                        main.temp,
+                        weather[0].icon,
+                        weather[0].description,
+                        main.humidity,
+                        main.feels_like,
+                        main.temp_min,
+                        main.temp_max,
+                        wind.speed,
+                        main.pressure
+                    )
+                )
             }
         }
         return forecastList
     }
 
     override fun convertCurrentWeather(model: CurrentWeatherModel): CurrentWeather = with(model) {
-        return CurrentWeather(name, main.temp, weather[0].icon, main.humidity, wind.speed, main.temp_min, main.temp_max)
+        return CurrentWeather(
+            name,
+            main.temp,
+            weather[0].icon,
+            main.humidity,
+            wind.speed,
+            main.temp_min,
+            main.temp_max
+        )
     }
 }

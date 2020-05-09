@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_forecast_larger_card.*
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.domain.entities.ForecastUnit
-import kotlinx.android.synthetic.main.item_forecast.*
 
 import kotlin.collections.ArrayList
 
-class ForecastAdapter(private val functionForListener: (Int) -> Unit) :
-    RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
+class ForecastLargerCardsAdapter :
+    RecyclerView.Adapter<ForecastLargerCardsAdapter.ViewHolder>() {
 
     private val forecastUnits: MutableList<ForecastUnit> = ArrayList()
 
@@ -25,7 +25,7 @@ class ForecastAdapter(private val functionForListener: (Int) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_forecast, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_forecast_larger_card, parent, false)
         )
     }
 
@@ -33,17 +33,26 @@ class ForecastAdapter(private val functionForListener: (Int) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(forecastUnits[position])
-        holder.itemView.setOnClickListener { functionForListener(position) }
+
     }
 
     inner class ViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(unit: ForecastUnit) = with(unit) {
+            card_description.text = description
+            card_date_time.text = dateTime
             Glide.with(containerView)
-                .load("https://openweathermap.org/img/wn/${icon}@2x.png")
-                .into(fc_unit_icon)
-            fc_unit_date.text = dateTime
-            fc_unit_temperature.text = temperature.toString()
+                .load("https://openweathermap.org/img/wn/$icon@2x.png")
+                .into(card_icon)
+            containerView.context.apply {
+                card_temperature.text = getString(R.string.temp, temperature)
+                card_feels_like.text = getString(R.string.feels, feelsLike)
+                card_humidity.text = getString(R.string.humidity, humidity)
+                card_wind.text = getString(R.string.wind, wind)
+                card_min.text = getString(R.string.temp_min, min)
+                card_max.text = getString(R.string.temp_max, max)
+            }
+
         }
     }
 }

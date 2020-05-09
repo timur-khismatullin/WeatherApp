@@ -25,19 +25,20 @@
         android:name="ru.voodoo420.weatherapp.fragments.CurrentWeatherFragment"
         android:label="CurrentWeatherFragment"
         tools:layout="@layout/fragment_current_weather">
+    </fragment>
+    <fragment
+        android:id="@+id/forecastLargerCardsFragment"
+        android:name="ru.voodoo420.weatherapp.fragments.ForecastLargerCardsFragment"
+        android:label="ForecastCardFragment"
+        tools:layout="@layout/fragment_forecast_larger_cards">
         <argument
-            android:name="lat"
-            android:defaultValue="0.0"
-            app:argType="float" />
-        <argument
-            android:name="lon"
-            android:defaultValue="0.0"
-            app:argType="float" />
+            android:name="pos"
+            app:argType="integer" />
     </fragment>
 
     <action
-        android:id="@+id/to_currentWeather"
-        app:destination="@id/currentWeatherFragment"
+        android:id="@+id/to_larger_card"
+        app:destination="@id/forecastLargerCardsFragment"
         app:enterAnim="@android:anim/slide_in_left"
         app:exitAnim="@android:anim/slide_out_right"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"

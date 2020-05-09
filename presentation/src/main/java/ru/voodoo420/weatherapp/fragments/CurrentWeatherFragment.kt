@@ -41,8 +41,8 @@ class CurrentWeatherFragment : Fragment() {
             with(it) {
                 current_city.text = city
                 current_temperature.text = getString(R.string.temp, temperature)
-                current_humidity.text = getString(R.string.humidity, humidity, "%")
-                current_wind.text = getString(R.string.wind, wind, "m/s")
+                current_humidity.text = getString(R.string.humidity, humidity)
+                current_wind.text = getString(R.string.wind, wind)
                 current_temp_min.text = getString(R.string.temp_min, minTemp)
                 current_temp_max.text = getString(R.string.temp_max, maxTemp)
 

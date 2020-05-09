@@ -8,6 +8,5 @@ data class UtilValues(
     @PrimaryKey val id: Int = 1,
     val lat: Float,
     val lon: Float,
-    val lastRequest: Long,
-    val firstLaunch: Boolean
+    val lastRequest: Long
 )
