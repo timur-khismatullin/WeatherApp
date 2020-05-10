@@ -19,4 +19,5 @@
     <string name="add">add</string>
     <string name="current_location">current location</string>
     <string name="city_deleting">Do you want to delete %s?</string>
+    <string name="city_name">%s, %s</string>
 </resources>

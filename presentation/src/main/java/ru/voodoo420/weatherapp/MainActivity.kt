@@ -9,7 +9,10 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
@@ -34,9 +37,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         bottom_nav.setupWithNavController(findNavController(R.id.container))
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         getLastLocation(Option.SET)
     }
 
@@ -142,5 +145,16 @@ class MainActivity : AppCompatActivity() {
 
     fun onClick(view: View) {
         getLastLocation(Option.CHECK)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val view = this.currentFocus
+        view?.let { v -> hideKeypad(v) }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun hideKeypad(parent: View?) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(parent?.windowToken, 0)
     }
 }

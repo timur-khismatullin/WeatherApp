@@ -15,6 +15,13 @@
         android:name="ru.voodoo420.weatherapp.fragments.CitiesFragment"
         android:label="CitiesFragment"
         tools:layout="@layout/fragment_cities" />
+    <action
+        android:id="@+id/to_cities"
+        app:destination="@id/citiesFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.voodoo420.weatherapp.fragments.SettingsFragment"

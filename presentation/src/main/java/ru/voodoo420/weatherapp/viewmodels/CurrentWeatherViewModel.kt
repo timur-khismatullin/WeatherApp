@@ -29,14 +29,13 @@ class CurrentWeatherViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             setStartData(Coord(55.7887f, 49.1221f))
-            getObservableCoord.execute()
-                .collect {
-                    withContext(Dispatchers.Main) {
-                        coord.value = Coord(it.lat, it.lon)
-                        viewState.value =
-                            getCurrentWeather.execute(Coord(coord.value!!.lat, coord.value!!.lon))
-                    }
+            getObservableCoord.execute().collect {
+                withContext(Dispatchers.Main) {
+                    coord.value = Coord(it.lat, it.lon)
+                    viewState.value =
+                        getCurrentWeather.byCoord(Coord(coord.value!!.lat, coord.value!!.lon))
                 }
+            }
         }
     }
 }

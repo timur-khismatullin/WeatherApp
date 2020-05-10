@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         app:cardBackgroundColor="@color/item"
         app:layout_constraintBottom_toTopOf="@+id/add_city_weather_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,33 +23,33 @@
 
             <EditText
                 android:id="@+id/add_city_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:autofillHints="@string/city"
-                android:ems="11"
                 android:hint="@string/city"
                 android:inputType="textPersonName"
-                app:layout_constraintBottom_toTopOf="@+id/add_city_add"
+                app:layout_constraintBottom_toTopOf="@+id/add_city_add_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"/>
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
                 android:contentDescription="@string/current_location"
                 android:onClick="onClick"
-                app:layout_constraintBottom_toBottomOf="@+id/add_city_editText"
-                app:layout_constraintEnd_toStartOf="@+id/add_city_editText"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/add_city_editText"
+                app:layout_constraintBottom_toBottomOf="@+id/add_city_add_button"
+                app:layout_constraintStart_toStartOf="@+id/add_city_editText"
+                app:layout_constraintTop_toTopOf="@+id/add_city_add_button"
                 app:srcCompat="@drawable/ic_add_location_black_24dp" />
 
             <Button
-                android:id="@+id/add_city_add"
+                android:id="@+id/add_city_add_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
@@ -58,23 +58,22 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/add_city_editText"
                 app:layout_constraintTop_toBottomOf="@+id/add_city_editText"
-                app:layout_constraintVertical_bias="0.797" />
+                app:layout_constraintVertical_chainStyle="packed"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/add_city_weather_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
         app:cardBackgroundColor="@color/item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -94,10 +93,10 @@
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                android:id="@+id/add_city_date_time"
+                android:id="@+id/add_city_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/date"
+                android:text="@string/city"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/add_city_description"
                 app:layout_constraintEnd_toEndOf="@+id/upper_linear"
@@ -160,8 +159,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@string/wind" />
+                    android:text="@string/wind"
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/add_city_humidity"
@@ -169,8 +168,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@string/humidity" />
+                    android:text="@string/humidity"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -190,8 +189,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@string/temp_min" />
+                    android:text="@string/temp_min"
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/add_city_max"
@@ -199,12 +198,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@string/temp_max" />
+                    android:text="@string/temp_max"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

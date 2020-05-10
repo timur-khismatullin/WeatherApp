@@ -8,31 +8,34 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.voodoo420.domain.entities.City
+import ru.voodoo420.domain.entities.CityCurrentWeather
 import ru.voodoo420.domain.usecases.AddCityUseCase
+import ru.voodoo420.domain.usecases.GetCurrentWeatherUseCase
 
-class AddCityViewModel(private val addCityUseCase: AddCityUseCase) : ViewModel(){
+class AddCityViewModel(
+    private val addCityUseCase: AddCityUseCase,
+    private val getCurrentWeather: GetCurrentWeatherUseCase
+) : ViewModel() {
 
-    val viewState = MutableLiveData<City>()
+    val observableCoordFromDb = MutableLiveData<City>()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-           addCityUseCase.getCityName().collect {
-               withContext(Dispatchers.Main){
-                   viewState.value = it
-               }
-           }
+            addCityUseCase.getObservableCurrentLocationFromDb().collect {
+                withContext(Dispatchers.Main) {
+                    observableCoordFromDb.value = it
+                }
+            }
         }
     }
 
-    suspend fun clearLocation(){
-        addCityUseCase.clearCity()
+    suspend fun clearLocation() {
+        addCityUseCase.clearCurrentLocationInDb()
     }
 
-    suspend fun setCoordByName(city: String){
-        addCityUseCase.execute(city)
+    suspend fun addCityToDb(cityName: String) {
+        addCityUseCase.addCityToDb(cityName)
     }
-    
-    suspend fun addCityToDb(cityName: String){
-        addCityUseCase.addCity(cityName)
-    }
+
+    suspend fun getWeather(cityName: String): CityCurrentWeather = getCurrentWeather.byName(cityName)
 }

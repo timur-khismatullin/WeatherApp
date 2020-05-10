@@ -42,7 +42,7 @@ val viewModelsModule = module {
     viewModel { CurrentWeatherViewModel(get(), get(), get()) }
     viewModel { CitiesViewModel(get(), get(), get()) }
     viewModel { MainActivityViewModel(get()) }
-    viewModel { AddCityViewModel(get()) }
+    viewModel { AddCityViewModel(get(), get()) }
 }
 
 val modules = listOf(repositoriesModule, useCasesModule, viewModelsModule)

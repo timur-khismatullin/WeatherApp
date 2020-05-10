@@ -11,22 +11,19 @@ class AddCityUseCase(
     private val weatherRepository: WeatherRepository
 ) {
 
-    fun getCityName(): Flow<City>{
+    fun getObservableCurrentLocationFromDb(): Flow<City>{
         citiesRepository.getCurrentLocation()
         return citiesRepository.getCurrentLocation()
     }
 
-    suspend fun clearCity(){
+    suspend fun clearCurrentLocationInDb(){
         citiesRepository.clearCurrentLocation()
     }
 
-    suspend fun execute(city: String){
-        citiesRepository.setMainCoord(weatherRepository.loadWeatherByCityName(city).city.coord)
-    }
-
-    suspend fun addCity(cityName: String){
+    suspend fun addCityToDb(cityName: String){
         val cityWeather = weatherRepository.loadWeatherByCityName(cityName)
         val city = cityWeather.city.apply { City(name, country, id, Coord( coord.lat, coord.lon)) }
         citiesRepository.addCity(city)
     }
+
 }
