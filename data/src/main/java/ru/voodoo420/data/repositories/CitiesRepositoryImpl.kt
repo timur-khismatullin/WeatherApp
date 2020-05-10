@@ -27,18 +27,34 @@ class CitiesRepositoryImpl(
             }
     }
 
-    override fun getUtilValues(): Flow<Coord> {
-        return roomAppDatabase.utilValuesDao().getUtilValues().map { Coord(it[0].lat, it[0].lon) }
+    override fun getMainCoord(): Flow<Coord> {
+        return roomAppDatabase.utilValuesDao().getUtilValues().map { it[0].run { Coord(lat, lon) } }
     }
 
-    override suspend fun setUtilValues(coord: Coord) {
-        val utilValues = UtilValues(1, coord.lat, coord.lon, 123) //todo
+    override fun getCurrentLocation(): Flow<City> {
+        return roomAppDatabase.utilValuesDao().getUtilValues()
+            .map { it[1].run { City(city, Coord(lat, lon)) } }
+    }
+
+    override suspend fun clearCurrentLocation() {
+        val clear = UtilValues(2, 0f, 0f, "")
+        roomAppDatabase.utilValuesDao().insert(clear)
+    }
+
+    override suspend fun setMainCoord(coord: Coord) {
+        val mainCoord = UtilValues(1, coord.lat, coord.lon, "cityName") //todo
+        roomAppDatabase.utilValuesDao().insert(mainCoord)
+    }
+
+    override suspend fun setCurrentCoord(coord: Coord, cityName: String) {
+        val utilValues = UtilValues(2, coord.lat, coord.lon, cityName)
         roomAppDatabase.utilValuesDao().insert(utilValues)
     }
 
     override suspend fun setStartData(coord: Coord) {
         if (!context.getDatabasePath("WeatherApp.db").exists()) {
-            setUtilValues(coord)
+            setMainCoord(coord)
+            clearCurrentLocation()
             roomAppDatabase.citiesDao().insertList(CityList.cities)
         }
     }

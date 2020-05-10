@@ -22,7 +22,7 @@ class ForecastViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            getObservableCoordFromDbUseCase.getCoord()
+            getObservableCoordFromDbUseCase.execute()
                 .collect {
                     withContext(Dispatchers.Main) {
                         coord.value = Coord(it.lat, it.lon)

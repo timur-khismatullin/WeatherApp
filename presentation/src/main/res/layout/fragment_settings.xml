@@ -7,11 +7,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textSize="22pt"
-        android:text="coming soon"/>
+        android:text="settings will be available later"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

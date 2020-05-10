@@ -15,4 +15,7 @@
     <string name="feels">feels like %.02f°</string>
     <string name="city">city</string>
     <string name="description">description</string>
+    <string name="add_city">add city</string>
+    <string name="add">add</string>
+    <string name="current_location">current location</string>
 </resources>

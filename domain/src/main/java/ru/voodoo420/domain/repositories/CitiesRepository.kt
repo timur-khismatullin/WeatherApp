@@ -6,7 +6,10 @@ import ru.voodoo420.domain.entities.Coord
 
 interface CitiesRepository {
     suspend fun loadCities(): Flow<List<City>>
-    suspend fun setUtilValues(coord: Coord)
+    suspend fun setMainCoord(coord: Coord)
+    suspend fun setCurrentCoord(coord: Coord, cityName: String)
     suspend fun setStartData(coord: Coord)
-    fun getUtilValues(): Flow<Coord>
+    fun getMainCoord(): Flow<Coord>
+    fun getCurrentLocation(): Flow<City>
+    suspend fun clearCurrentLocation()
 }

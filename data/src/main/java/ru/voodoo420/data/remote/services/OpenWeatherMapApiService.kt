@@ -27,6 +27,13 @@ interface OpenWeatherMapApiService {
         @Query("units") units: String
     ): CurrentWeatherModel
 
+    @GET("weather")
+    suspend fun loadWeatherByCity(
+        @Query("q") city: String,
+        @Query("appid") keyApi: String,
+        @Query("units") units: String
+    ): CurrentWeatherModel
+
 
     companion object Factory{
         private const val baseUrl = "https://api.openweathermap.org/data/2.5/"

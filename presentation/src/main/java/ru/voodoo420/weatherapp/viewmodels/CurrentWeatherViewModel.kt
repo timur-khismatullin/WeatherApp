@@ -28,8 +28,8 @@ class CurrentWeatherViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            setStartData(Coord(55.7887f, 49.1221f)) //todo
-            getObservableCoordFromDbUseCase.getCoord()
+            setStartData(Coord(55.7887f, 49.1221f))
+            getObservableCoordFromDbUseCase.execute()
                 .collect {
                     withContext(Dispatchers.Main) {
                         coord.value = Coord(it.lat, it.lon)

@@ -7,4 +7,5 @@ interface WeatherProvider {
 
     suspend fun getFiveDaysForecast(lat: Float, lon: Float): FiveDaysForecast
     suspend fun getCurrentWeather(lat: Float, lon: Float): CurrentWeatherModel
+    suspend fun getCurrentWeatherByCity(name: String): CurrentWeatherModel
 }

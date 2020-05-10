@@ -1,7 +1,7 @@
 package ru.voodoo420.data.remote.models
 
 data class CityModel(
-    val coordModel: CoordModel,
+    val coord: CoordModel,
     val country: String,
     val id: Int,
     val name: String,

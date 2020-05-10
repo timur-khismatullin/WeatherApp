@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/card_description"
             app:layout_constraintEnd_toEndOf="@+id/upper_linear"
             app:layout_constraintStart_toStartOf="@+id/upper_linear"

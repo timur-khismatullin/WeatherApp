@@ -4,7 +4,7 @@ data class CurrentWeatherModel(
     val base: String,
     val clouds: Clouds,
     val cod: Int,
-    val coordModel: CoordModel,
+    val coord: CoordModel,
     val dt: Int,
     val id: Int,
     val main: Main,
@@ -13,5 +13,6 @@ data class CurrentWeatherModel(
     val timezone: Int,
     val visibility: Int,
     val weather: List<Weather>,
-    val wind: Wind
+    val wind: Wind,
+    val message: String
 )

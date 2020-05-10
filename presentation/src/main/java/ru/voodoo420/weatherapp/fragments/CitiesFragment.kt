@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_cities.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.voodoo420.weatherapp.NavGraphDirections
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.weatherapp.adapters.CitiesAdapter
 import ru.voodoo420.weatherapp.viewmodels.CitiesViewModel
@@ -31,6 +33,7 @@ class CitiesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapterRecycler()
+        cities_add.setOnClickListener { findNavController().navigate(NavGraphDirections.toAddCity()) }
     }
 
     private fun initAdapterRecycler() {

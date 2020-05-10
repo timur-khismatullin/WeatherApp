@@ -2,8 +2,7 @@ package ru.voodoo420.data.converters
 
 import ru.voodoo420.data.remote.models.CurrentWeatherModel
 import ru.voodoo420.data.remote.models.FiveDaysForecast
-import ru.voodoo420.domain.entities.CurrentWeather
-import ru.voodoo420.domain.entities.ForecastUnit
+import ru.voodoo420.domain.entities.*
 
 class FromApiToEntitiesConverterImpl : FromApiToEntitiesConverter {
 
@@ -41,6 +40,13 @@ class FromApiToEntitiesConverterImpl : FromApiToEntitiesConverter {
             main.temp_max,
             main.feels_like,
             weather[0].description
+        )
+    }
+
+    override fun convertCityCurrentWeather(model: CurrentWeatherModel): CityCurrentWeather = with(model) {
+        return CityCurrentWeather(
+            City(name, Coord(coord.lat, coord.lon)),
+            convertCurrentWeather(model)
         )
     }
 }

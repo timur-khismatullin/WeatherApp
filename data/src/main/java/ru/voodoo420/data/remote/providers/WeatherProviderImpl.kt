@@ -15,4 +15,8 @@ class WeatherProviderImpl : WeatherProvider {
     override suspend fun getCurrentWeather(lat: Float, lon: Float): CurrentWeatherModel {
         return OpenWeatherMapApiService.create().loadCurrentWeather(lat, lon, apiKey, units)
     }
+
+    override suspend fun getCurrentWeatherByCity(name: String): CurrentWeatherModel {
+        return OpenWeatherMapApiService.create().loadWeatherByCity(name, apiKey, units)
+    }
 }

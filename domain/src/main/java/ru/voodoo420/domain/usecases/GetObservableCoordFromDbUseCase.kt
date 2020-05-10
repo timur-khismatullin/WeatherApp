@@ -6,5 +6,5 @@ import ru.voodoo420.domain.repositories.CitiesRepository
 
 class GetObservableCoordFromDbUseCase(private val citiesRepository: CitiesRepository) {
 
-   fun getCoord(): Flow<Coord> = citiesRepository.getUtilValues()
+   fun execute(): Flow<Coord> = citiesRepository.getMainCoord()
 }

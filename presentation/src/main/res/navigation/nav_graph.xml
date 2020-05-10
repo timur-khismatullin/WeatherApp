@@ -35,10 +35,21 @@
             android:name="pos"
             app:argType="integer" />
     </fragment>
-
     <action
         android:id="@+id/to_larger_card"
         app:destination="@id/forecastLargerCardsFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    <fragment
+        android:id="@+id/addCityFragment"
+        android:name="ru.voodoo420.weatherapp.fragments.AddCityFragment"
+        android:label="AddCityFragment"
+        tools:layout="@layout/fragment_add_city"/>
+    <action
+        android:id="@+id/to_add_city"
+        app:destination="@id/addCityFragment"
         app:enterAnim="@android:anim/slide_in_left"
         app:exitAnim="@android:anim/slide_out_right"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"

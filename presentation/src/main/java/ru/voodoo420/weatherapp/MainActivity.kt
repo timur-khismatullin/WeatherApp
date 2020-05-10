@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
@@ -21,10 +22,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.voodoo420.domain.entities.Coord
 import ru.voodoo420.weatherapp.viewmodels.MainActivityViewModel
 
+enum class Option { SET, CHECK }
+
 class MainActivity : AppCompatActivity() {
 
     private val permissionId = 42
-    lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     val mainActivityViewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +36,10 @@ class MainActivity : AppCompatActivity() {
 
         bottom_nav.setupWithNavController(findNavController(R.id.container))
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation()
+        getLastLocation(Option.SET)
     }
 
-    private fun getLastLocation() {
+    private fun getLastLocation(mode: Option) {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 fusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
@@ -44,13 +47,14 @@ class MainActivity : AppCompatActivity() {
                     if (location == null) {
                         requestNewLocationData()
                     } else {
+                        val coord = Coord(location.latitude.toFloat(), location.longitude.toFloat())
                         lifecycleScope.launch {
-                            mainActivityViewModel.setCoord(
-                                Coord(
-                                    location.latitude.toFloat(),
-                                    location.longitude.toFloat()
-                                )
-                            )
+                            mainActivityViewModel.apply {
+                                when (mode) {
+                                    Option.SET -> setMainCoord(coord)
+                                    Option.CHECK -> setCurrentCoord(coord)
+                                }
+                            }
                         }
                     }
                 }
@@ -81,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         override fun onLocationResult(locationResult: LocationResult) {
             val lastLocation: Location = locationResult.lastLocation
             lifecycleScope.launch {
-                mainActivityViewModel.setCoord(
+                mainActivityViewModel.setMainCoord(
                     Coord(
                         lastLocation.latitude.toFloat(),
                         lastLocation.longitude.toFloat()
@@ -102,7 +106,11 @@ class MainActivity : AppCompatActivity() {
     private fun checkPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
             == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                (
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             return true
         }
         return false
@@ -119,7 +127,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -127,8 +134,12 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (requestCode == permissionId) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLastLocation()
+                getLastLocation(Option.SET)
             }
         }
+    }
+
+    fun onClick(view: View) {
+        getLastLocation(Option.CHECK)
     }
 }

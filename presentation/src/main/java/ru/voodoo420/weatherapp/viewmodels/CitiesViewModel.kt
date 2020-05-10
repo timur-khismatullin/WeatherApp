@@ -21,7 +21,7 @@ class CitiesViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            getCities.getCitiesWeather().collect {
+            getCities.execute().collect {
                 withContext(Dispatchers.Main) {
                     viewState.value = it
                 }
@@ -30,6 +30,6 @@ class CitiesViewModel(
     }
 
     suspend fun setCoordinates(coord: Coord) {
-        setCoord.setCoord(coord)
+        setCoord.setMainCoord(coord)
     }
 }

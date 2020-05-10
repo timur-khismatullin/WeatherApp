@@ -7,6 +7,6 @@ import ru.voodoo420.domain.repositories.WeatherRepository
 class GetCurrentWeatherByCoordUseCase(private val repository: WeatherRepository){
 
     suspend fun execute(coord: Coord): CurrentWeather {
-        return repository.loadCurrentWeather(coord)
+        return repository.loadCurrentWeather(coord).weather
     }
 }
