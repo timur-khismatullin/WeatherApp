@@ -1,55 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/item"
-    android:layout_margin="16dp">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/item"
+        app:layout_constraintBottom_toTopOf="@+id/add_city_weather_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/add_city_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:ems="11"
-            android:hint="@string/city"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/add_city_add"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
-            android:autofillHints="@string/city" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/current_location"
-            android:onClick="onClick"
-            app:layout_constraintBottom_toBottomOf="@+id/add_city_editText"
-            app:layout_constraintEnd_toStartOf="@+id/add_city_editText"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/add_city_editText"
-            app:srcCompat="@drawable/ic_add_location_black_24dp" />
+            <EditText
+                android:id="@+id/add_city_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/city"
+                android:ems="11"
+                android:hint="@string/city"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/add_city_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/add_city_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/add_city_editText"
-            app:layout_constraintTop_toBottomOf="@+id/add_city_editText"
-            app:layout_constraintVertical_bias="0.797" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/current_location"
+                android:onClick="onClick"
+                app:layout_constraintBottom_toBottomOf="@+id/add_city_editText"
+                app:layout_constraintEnd_toStartOf="@+id/add_city_editText"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/add_city_editText"
+                app:srcCompat="@drawable/ic_add_location_black_24dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+            <Button
+                android:id="@+id/add_city_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/add_city_editText"
+                app:layout_constraintTop_toBottomOf="@+id/add_city_editText"
+                app:layout_constraintVertical_bias="0.797" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/add_city_weather_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/add_city_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/description"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/add_city_icon"
+                app:layout_constraintEnd_toEndOf="@+id/add_city_icon"
+                app:layout_constraintStart_toStartOf="@+id/add_city_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/add_city_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/add_city_description"
+                app:layout_constraintEnd_toEndOf="@+id/upper_linear"
+                app:layout_constraintStart_toStartOf="@+id/upper_linear"
+                app:layout_constraintTop_toTopOf="@+id/add_city_description" />
+
+            <ImageView
+                android:id="@+id/add_city_icon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/weather_icon"
+                app:layout_constraintBottom_toTopOf="@+id/lower_left_linear"
+                app:layout_constraintEnd_toStartOf="@+id/upper_linear"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_city_description"
+                app:srcCompat="@drawable/ic_forecast" />
+
+            <LinearLayout
+                android:id="@+id/upper_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/add_city_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/add_city_icon"
+                app:layout_constraintTop_toTopOf="@+id/add_city_icon">
+
+                <TextView
+                    android:id="@+id/add_city_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temp"
+                    android:textColor="@color/white"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:id="@+id/add_city_feels_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feels" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lower_left_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/add_city_icon"
+                app:layout_constraintStart_toStartOf="@+id/add_city_icon"
+                app:layout_constraintTop_toBottomOf="@+id/add_city_icon">
+
+                <TextView
+                    android:id="@+id/add_city_wind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/wind" />
+
+                <TextView
+                    android:id="@+id/add_city_humidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/humidity" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lower_right_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/lower_left_linear"
+                app:layout_constraintEnd_toEndOf="@+id/upper_linear"
+                app:layout_constraintStart_toStartOf="@+id/upper_linear"
+                app:layout_constraintTop_toBottomOf="@+id/add_city_icon">
+
+                <TextView
+                    android:id="@+id/add_city_min"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/temp_min" />
+
+                <TextView
+                    android:id="@+id/add_city_max"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/temp_max" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

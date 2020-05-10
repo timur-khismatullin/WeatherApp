@@ -12,4 +12,6 @@ interface CitiesRepository {
     fun getMainCoord(): Flow<Coord>
     fun getCurrentLocation(): Flow<City>
     suspend fun clearCurrentLocation()
+    suspend fun addCity(city: City)
+    suspend fun deleteCity(city: City)
 }

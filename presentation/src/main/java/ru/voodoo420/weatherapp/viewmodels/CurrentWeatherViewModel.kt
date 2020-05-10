@@ -9,13 +9,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.voodoo420.domain.entities.Coord
 import ru.voodoo420.domain.entities.CurrentWeather
-import ru.voodoo420.domain.usecases.GetCurrentWeatherByCoordUseCase
+import ru.voodoo420.domain.usecases.GetCurrentWeatherUseCase
 import ru.voodoo420.domain.usecases.GetObservableCoordFromDbUseCase
 import ru.voodoo420.domain.usecases.SetUtilValuesToDbUseCase
 
 class CurrentWeatherViewModel(
-    getCurrentWeather: GetCurrentWeatherByCoordUseCase,
-    getObservableCoordFromDbUseCase: GetObservableCoordFromDbUseCase,
+    getCurrentWeather: GetCurrentWeatherUseCase,
+    getObservableCoord: GetObservableCoordFromDbUseCase,
     private val setCoordUseCase: SetUtilValuesToDbUseCase
 ) : ViewModel() {
 
@@ -29,7 +29,7 @@ class CurrentWeatherViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             setStartData(Coord(55.7887f, 49.1221f))
-            getObservableCoordFromDbUseCase.execute()
+            getObservableCoord.execute()
                 .collect {
                     withContext(Dispatchers.Main) {
                         coord.value = Coord(it.lat, it.lon)

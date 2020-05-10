@@ -8,5 +8,6 @@ data class UtilValues(
     @PrimaryKey val id: Int,
     val lat: Float,
     val lon: Float,
-    val city: String
+    val city: String,
+    val country: String
 )

@@ -25,6 +25,7 @@ import ru.voodoo420.weatherapp.viewmodels.MainActivityViewModel
 enum class Option { SET, CHECK }
 
 class MainActivity : AppCompatActivity() {
+    //todo if location changed
 
     private val permissionId = 42
     private lateinit var fusedLocationClient: FusedLocationProviderClient

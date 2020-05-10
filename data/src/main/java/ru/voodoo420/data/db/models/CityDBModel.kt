@@ -4,4 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class CityDBModel(@PrimaryKey val id: Int, val name: String, val lat: Float, val lon: Float)
+data class CityDBModel(
+    @PrimaryKey val id: Int,
+    val name: String,
+    val county: String,
+    val lat: Float,
+    val lon: Float
+)

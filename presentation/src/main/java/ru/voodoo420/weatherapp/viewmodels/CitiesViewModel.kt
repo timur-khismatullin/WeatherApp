@@ -7,14 +7,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.voodoo420.domain.entities.City
 import ru.voodoo420.domain.entities.CityCurrentWeather
 import ru.voodoo420.domain.entities.Coord
+import ru.voodoo420.domain.usecases.DeleteCityUseCase
 import ru.voodoo420.domain.usecases.GetCitiesWeatherUseCase
 import ru.voodoo420.domain.usecases.SetUtilValuesToDbUseCase
 
 class CitiesViewModel(
     getCities: GetCitiesWeatherUseCase,
-    private val setCoord: SetUtilValuesToDbUseCase
+    private val setCoord: SetUtilValuesToDbUseCase,
+    private val deleteCityUseCase: DeleteCityUseCase
 ) : ViewModel() {
 
     val viewState = MutableLiveData<List<CityCurrentWeather>>()
@@ -32,4 +35,9 @@ class CitiesViewModel(
     suspend fun setCoordinates(coord: Coord) {
         setCoord.setMainCoord(coord)
     }
+
+    suspend fun deleteCity(city: City) {
+        deleteCityUseCase.execute(city)
+    }
+
 }

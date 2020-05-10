@@ -5,6 +5,8 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.voodoo420.data.converters.FromApiToEntitiesConverter
 import ru.voodoo420.data.converters.FromApiToEntitiesConverterImpl
+import ru.voodoo420.data.converters.FromEntitiesToDbConverter
+import ru.voodoo420.data.converters.FromEntitiesToDbConverterImpl
 import ru.voodoo420.data.db.RoomAppDatabase
 import ru.voodoo420.data.remote.providers.WeatherProvider
 import ru.voodoo420.data.remote.providers.WeatherProviderImpl
@@ -15,27 +17,30 @@ import ru.voodoo420.domain.repositories.WeatherRepository
 import ru.voodoo420.domain.usecases.*
 import ru.voodoo420.weatherapp.viewmodels.*
 
+
 val repositoriesModule = module {
     single { RoomAppDatabase.buildDatabase(androidContext()) }
     single<WeatherProvider> { WeatherProviderImpl()}
     single<FromApiToEntitiesConverter> { FromApiToEntitiesConverterImpl() }
+    single<FromEntitiesToDbConverter> { FromEntitiesToDbConverterImpl() }
     single<WeatherRepository> { WeatherRepositoryImpl(get(), get()) }
-    single<CitiesRepository> { CitiesRepositoryImpl(get(),(androidContext())) }
+    single<CitiesRepository> { CitiesRepositoryImpl(get(),(androidContext()), get()) }
 }
 
 val useCasesModule = module {
-    single { GetForecastByCoordUseCase(get()) }
-    single { GetCurrentWeatherByCoordUseCase(get()) }
+    single { GetForecastUseCase(get()) }
+    single { GetCurrentWeatherUseCase(get()) }
     single { GetCitiesWeatherUseCase(get(),get()) }
     single { GetObservableCoordFromDbUseCase(get()) }
     single { SetUtilValuesToDbUseCase(get(), get()) }
     single { AddCityUseCase(get(), get()) }
+    single { DeleteCityUseCase(get()) }
 }
 
 val viewModelsModule = module {
     viewModel { ForecastViewModel(get(),get()) }
     viewModel { CurrentWeatherViewModel(get(), get(), get()) }
-    viewModel { CitiesViewModel(get(), get()) }
+    viewModel { CitiesViewModel(get(), get(), get()) }
     viewModel { MainActivityViewModel(get()) }
     viewModel { AddCityViewModel(get()) }
 }

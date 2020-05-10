@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -12,11 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_cities.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.voodoo420.domain.entities.City
 import ru.voodoo420.weatherapp.NavGraphDirections
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.weatherapp.adapters.CitiesAdapter
 import ru.voodoo420.weatherapp.viewmodels.CitiesViewModel
-import timber.log.Timber
 
 class CitiesFragment : Fragment() {
 
@@ -37,12 +38,12 @@ class CitiesFragment : Fragment() {
     }
 
     private fun initAdapterRecycler() {
-        val adapter = CitiesAdapter {
+        val adapter = CitiesAdapter({ coord ->
             lifecycleScope.launch {
-                citiesViewModel.setCoordinates(it)
-                Timber.d("${it.lat} ${it.lon}")
+                citiesViewModel.setCoordinates(coord)
             }
-        }
+        }, { initDialog(it) })
+
         citiesViewModel.viewState.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
@@ -51,4 +52,16 @@ class CitiesFragment : Fragment() {
         cities_recycler.adapter = adapter
     }
 
+    private fun initDialog(city: City) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle(getString(R.string.city_deleting, city.name))
+            setPositiveButton(android.R.string.yes) { _, _ ->
+                lifecycleScope.launch {
+                    citiesViewModel.deleteCity(city)
+                }
+            }
+            setNegativeButton(android.R.string.no) { _, _ -> }
+            show()
+        }
+    }
 }

@@ -29,12 +29,14 @@ class AddCityFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            addCityViewModel.cleatLocation()
+            addCityViewModel.clearLocation()
         }
 
         add_city_add.setOnClickListener {
             lifecycleScope.launch {
-                addCityViewModel.setCoordByName(add_city_editText.text.toString())
+                addCityViewModel.addCityToDb(add_city_editText.text.toString())
+//                addCityViewModel.setCoordByName(add_city_editText.text.toString())
+//                add_city_weather_card.visibility = View.VISIBLE
             }
         }
 

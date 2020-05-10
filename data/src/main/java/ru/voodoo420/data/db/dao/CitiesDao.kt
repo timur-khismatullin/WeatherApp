@@ -6,14 +6,11 @@ import ru.voodoo420.data.db.models.CityDBModel
 
 @Dao
 interface CitiesDao {
-    @Query("SELECT * FROM CityDBModel")
+    @Query("SELECT * FROM CityDBModel ORDER BY LOWER(name) ASC ")
     fun getCities(): Flow<List<CityDBModel>>
 
-    @Query("SELECT * FROM CityDBModel")
-    fun get(): List<CityDBModel>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(cityDBModel: CityDBModel)
+    suspend fun insert(vararg cityDBModel: CityDBModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(list: List<CityDBModel>)

@@ -9,7 +9,7 @@ import ru.voodoo420.domain.repositories.WeatherRepository
 
 class WeatherRepositoryImpl(
     private val weatherProvider: WeatherProvider,
-    private val converter: FromApiToEntitiesConverter
+    private val converter: FromApiToEntitiesConverter //todo convert in provider
 ) : WeatherRepository {
 
     override suspend fun loadForecast(coord: Coord): List<ForecastUnit> {

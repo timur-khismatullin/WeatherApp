@@ -9,11 +9,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.voodoo420.domain.entities.Coord
 import ru.voodoo420.domain.entities.ForecastUnit
-import ru.voodoo420.domain.usecases.GetForecastByCoordUseCase
+import ru.voodoo420.domain.usecases.GetForecastUseCase
 import ru.voodoo420.domain.usecases.GetObservableCoordFromDbUseCase
 
 class ForecastViewModel(
-    getForecast: GetForecastByCoordUseCase,
+    getForecast: GetForecastUseCase,
     getObservableCoordFromDbUseCase: GetObservableCoordFromDbUseCase
 ) : ViewModel() {
 

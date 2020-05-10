@@ -45,7 +45,7 @@ class FromApiToEntitiesConverterImpl : FromApiToEntitiesConverter {
 
     override fun convertCityCurrentWeather(model: CurrentWeatherModel): CityCurrentWeather = with(model) {
         return CityCurrentWeather(
-            City(name, Coord(coord.lat, coord.lon)),
+            City(name, sys.country, id, Coord(coord.lat, coord.lon)),
             convertCurrentWeather(model)
         )
     }

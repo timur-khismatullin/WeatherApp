@@ -7,13 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_city.*
+import ru.voodoo420.domain.entities.City
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.domain.entities.CityCurrentWeather
 import ru.voodoo420.domain.entities.Coord
 
 import kotlin.collections.ArrayList
 
-class CitiesAdapter(private val functionForListener: (Coord) -> Unit) :
+class CitiesAdapter(
+    private val coordToFunction: (Coord) -> Unit,
+    private val idToFunction: (City) -> Unit
+) :
     RecyclerView.Adapter<CitiesAdapter.ViewHolder>() {
 
     private val cities: MutableList<CityCurrentWeather> = ArrayList()
@@ -34,12 +38,18 @@ class CitiesAdapter(private val functionForListener: (Coord) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentWeather = cities[position]
-        holder.bind(currentWeather)
-        holder.itemView.setOnClickListener {
-            currentWeather.city.coord.apply {
-                functionForListener(
-                    Coord(lat, lon)
-                )
+        holder.apply {
+            bind(currentWeather)
+            itemView.setOnClickListener {
+                currentWeather.city.coord.apply {
+                    coordToFunction(
+                        Coord(lat, lon)
+                    )
+                }
+            }
+            itemView.setOnLongClickListener {
+                idToFunction(currentWeather.city)
+                return@setOnLongClickListener true
             }
         }
     }
