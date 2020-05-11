@@ -2,13 +2,13 @@ package ru.voodoo420.data.remote.services
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.voodoo420.data.remote.models.CurrentWeatherModel
 import ru.voodoo420.data.remote.models.FiveDaysForecast
-import java.util.concurrent.TimeUnit
 
 interface OpenWeatherMapApiService {
 
@@ -33,16 +33,13 @@ interface OpenWeatherMapApiService {
         @Query("q") city: String,
         @Query("appid") keyApi: String,
         @Query("units") units: String
-    ): CurrentWeatherModel
+    ): Response<CurrentWeatherModel>
 
 
     companion object Factory{
         private const val baseUrl = "https://api.openweathermap.org/data/2.5/"
         private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
         private val client = OkHttpClient.Builder()
-            .connectTimeout(300, TimeUnit.MILLISECONDS)
-            .writeTimeout(300, TimeUnit.MILLISECONDS)
-            .readTimeout(300, TimeUnit.MILLISECONDS)
             .addInterceptor(interceptor).build()
 
         fun create(): OpenWeatherMapApiService{

@@ -19,10 +19,10 @@ import ru.voodoo420.weatherapp.viewmodels.*
 
 val repositoriesModule = module {
     single { RoomAppDatabase.buildDatabase(androidContext()) }
-    single<WeatherProvider> { WeatherProviderImpl()}
     single<FromApiToEntitiesConverter> { FromApiToEntitiesConverterImpl() }
     single<FromEntitiesToDbConverter> { FromEntitiesToDbConverterImpl() }
-    single<WeatherRepository> { WeatherRepositoryImpl(get(), get()) }
+    single<WeatherProvider> { WeatherProviderImpl(get())}
+    single<WeatherRepository> { WeatherRepositoryImpl(get()) }
     single<CitiesRepository> { CitiesRepositoryImpl(get(),(androidContext()), get()) }
 }
 

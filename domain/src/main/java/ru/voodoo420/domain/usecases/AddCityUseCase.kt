@@ -21,9 +21,10 @@ class AddCityUseCase(
     }
 
     suspend fun addCityToDb(cityName: String){
-        val cityWeather = weatherRepository.loadWeatherByCityName(cityName)
-        val city = cityWeather.city.apply { City(name, country, id, Coord( coord.lat, coord.lon)) }
-        citiesRepository.addCity(city)
+        val result = weatherRepository.loadWeatherByCityName(cityName)
+        if(result.code == 200){
+            val city = result.cityCurrentWeather!!.city.apply { City(name, country, id, Coord( coord.lat, coord.lon)) }
+            citiesRepository.addCity(city)
+        }
     }
-
 }

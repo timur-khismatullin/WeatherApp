@@ -65,15 +65,19 @@ class AddCityFragment : Fragment() {
                 if (connected) {
                     add_city_editText.addTextChangedListener {
                         var timer = Timer()
-                        val delay: Long = 3000
+                        val delay: Long = 300
                         timer.cancel()
                         timer = Timer()
                         timer.schedule(
                             object : TimerTask() {
                                 override fun run() {
                                     lifecycleScope.launch {
-                                        if (connected) {
-                                            initCard(addCityViewModel.getWeather(add_city_editText.text.toString()))
+                                        if (connected) { //todo
+                                            val result =
+                                                addCityViewModel.getWeather(add_city_editText.text.toString())
+                                            if (result.code == 200) {
+                                                initCard(result.cityCurrentWeather!!)
+                                            }
                                         }
                                     }
                                 }

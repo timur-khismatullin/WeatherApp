@@ -37,5 +37,5 @@ class AddCityViewModel(
         addCityUseCase.addCityToDb(cityName)
     }
 
-    suspend fun getWeather(cityName: String): CityCurrentWeather = getCurrentWeather.byName(cityName)
+    suspend fun getWeather(cityName: String) = getCurrentWeather.byName(cityName)
 }
