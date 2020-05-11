@@ -17,7 +17,6 @@ import ru.voodoo420.domain.repositories.WeatherRepository
 import ru.voodoo420.domain.usecases.*
 import ru.voodoo420.weatherapp.viewmodels.*
 
-
 val repositoriesModule = module {
     single { RoomAppDatabase.buildDatabase(androidContext()) }
     single<WeatherProvider> { WeatherProviderImpl()}

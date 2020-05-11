@@ -13,6 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.voodoo420.weatherapp.NavGraphDirections
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.weatherapp.adapters.ForecastAdapter
+import ru.voodoo420.weatherapp.utils.NetworkUtil
 import ru.voodoo420.weatherapp.viewmodels.ForecastViewModel
 
 class ForecastFragment : Fragment() {
@@ -33,15 +34,20 @@ class ForecastFragment : Fragment() {
     }
 
     private fun initAdapterRecycler() {
-        val adapter = ForecastAdapter {
-            findNavController().navigate(NavGraphDirections.toLargerCard(it))
-        }
+        NetworkUtil.getNetworkLiveData(requireContext())
+            .observe(viewLifecycleOwner, Observer { connected ->
+                if (connected) {
+                    val adapter = ForecastAdapter {
+                        findNavController().navigate(NavGraphDirections.toLargerCard(it))
+                    }
 
-        forecastViewModel.viewState.observe(viewLifecycleOwner, Observer {
-            adapter.setData(it)
-        })
+                    forecastViewModel.viewState.observe(viewLifecycleOwner, Observer {
+                        adapter.setData(it)
+                    })
 
-        forecast_recycler.layoutManager = LinearLayoutManager(this.context)
-        forecast_recycler.adapter = adapter
+                    forecast_recycler.layoutManager = LinearLayoutManager(this.context)
+                    forecast_recycler.adapter = adapter
+                }
+            })
     }
 }

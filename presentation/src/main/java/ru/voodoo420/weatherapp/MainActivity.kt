@@ -25,10 +25,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.voodoo420.domain.entities.Coord
 import ru.voodoo420.weatherapp.viewmodels.MainActivityViewModel
 
-enum class Option { SET, CHECK }
+enum class Option { SET_MAIN, SET_CURRENT }
 
 class MainActivity : AppCompatActivity() {
-    //todo if location changed
 
     private val permissionId = 42
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setupWithNavController(findNavController(R.id.container))
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-        getLastLocation(Option.SET)
+        getLastLocation(Option.SET_MAIN)  //todo if location changed
     }
 
     private fun getLastLocation(mode: Option) {
@@ -55,8 +54,8 @@ class MainActivity : AppCompatActivity() {
                         lifecycleScope.launch {
                             mainActivityViewModel.apply {
                                 when (mode) {
-                                    Option.SET -> setMainCoord(coord)
-                                    Option.CHECK -> setCurrentCoord(coord)
+                                    Option.SET_MAIN -> setMainCoord(coord)
+                                    Option.SET_CURRENT -> setCurrentCoord(coord)
                                 }
                             }
                         }
@@ -138,13 +137,13 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (requestCode == permissionId) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLastLocation(Option.SET)
+                getLastLocation(Option.SET_MAIN)
             }
         }
     }
 
     fun onClick(view: View) {
-        getLastLocation(Option.CHECK)
+        getLastLocation(Option.SET_CURRENT)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

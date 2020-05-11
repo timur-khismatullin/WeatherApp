@@ -17,6 +17,7 @@ import ru.voodoo420.domain.entities.City
 import ru.voodoo420.weatherapp.NavGraphDirections
 import ru.voodoo420.weatherapp.R
 import ru.voodoo420.weatherapp.adapters.CitiesAdapter
+import ru.voodoo420.weatherapp.utils.NetworkUtil
 import ru.voodoo420.weatherapp.viewmodels.CitiesViewModel
 
 class CitiesFragment : Fragment() {
@@ -38,18 +39,23 @@ class CitiesFragment : Fragment() {
     }
 
     private fun initAdapterRecycler() {
-        val adapter = CitiesAdapter({ coord ->
-            lifecycleScope.launch {
-                citiesViewModel.setCoordinates(coord)
-            }
-        }, { initDialog(it) })
+        NetworkUtil.getNetworkLiveData(requireContext())
+            .observe(viewLifecycleOwner, Observer { connected ->
+                if (connected) {
+                    val adapter = CitiesAdapter({ coord ->
+                        lifecycleScope.launch {
+                            citiesViewModel.setCoordinates(coord) //todo if no internet -> java.net.SocketTimeoutException: timeout
+                        }
+                    }, { initDialog(it) })
 
-        citiesViewModel.viewState.observe(viewLifecycleOwner, Observer {
-            adapter.setData(it)
-        })
+                    citiesViewModel.viewState.observe(viewLifecycleOwner, Observer {
+                        adapter.setData(it)
+                    })
 
-        cities_recycler.layoutManager = LinearLayoutManager(this.context)
-        cities_recycler.adapter = adapter
+                    cities_recycler.layoutManager = LinearLayoutManager(this.context)
+                    cities_recycler.adapter = adapter
+                }
+            })
     }
 
     private fun initDialog(city: City) {

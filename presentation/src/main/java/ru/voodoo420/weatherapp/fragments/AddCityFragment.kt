@@ -17,6 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.voodoo420.domain.entities.CityCurrentWeather
 import ru.voodoo420.weatherapp.NavGraphDirections
 import ru.voodoo420.weatherapp.R
+import ru.voodoo420.weatherapp.utils.NetworkUtil
 import ru.voodoo420.weatherapp.viewmodels.AddCityViewModel
 import java.util.*
 
@@ -59,21 +60,28 @@ class AddCityFragment : Fragment() {
     }
 
     private fun addTextChangedListener() {
-        add_city_editText.addTextChangedListener {
-            var timer = Timer()
-            val delay: Long = 3000
-            timer.cancel()
-            timer = Timer()
-            timer.schedule(
-                object : TimerTask() {
-                    override fun run() {
-                        lifecycleScope.launch {
-                            initCard(addCityViewModel.getWeather(add_city_editText.text.toString()))
-                        }
+        NetworkUtil.getNetworkLiveData(requireContext())
+            .observe(viewLifecycleOwner, Observer { connected ->
+                if (connected) {
+                    add_city_editText.addTextChangedListener {
+                        var timer = Timer()
+                        val delay: Long = 3000
+                        timer.cancel()
+                        timer = Timer()
+                        timer.schedule(
+                            object : TimerTask() {
+                                override fun run() {
+                                    lifecycleScope.launch {
+                                        if (connected) {
+                                            initCard(addCityViewModel.getWeather(add_city_editText.text.toString()))
+                                        }
+                                    }
+                                }
+                            }, delay
+                        )
                     }
-                }, delay
-            )
-        }
+                }
+            })
     }
 
     private fun initCard(currentWeather: CityCurrentWeather) = with(currentWeather) {

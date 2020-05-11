@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_current_weather.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.voodoo420.weatherapp.R
+import ru.voodoo420.weatherapp.utils.NetworkUtil
 import ru.voodoo420.weatherapp.viewmodels.CurrentWeatherViewModel
 
 class CurrentWeatherFragment : Fragment() {
@@ -30,19 +32,24 @@ class CurrentWeatherFragment : Fragment() {
     }
 
     private fun initView() {
-        currentWeatherModel.viewState.observe(viewLifecycleOwner, Observer {
-            with(it) {
-                current_city.text = city
-                current_temperature.text = getString(R.string.temp, temperature)
-                current_humidity.text = getString(R.string.humidity, humidity)
-                current_wind.text = getString(R.string.wind, wind)
-                current_description.text = description
-                feels_like.text = getString(R.string.feels, feels)
+        NetworkUtil.getNetworkLiveData(requireContext())
+            .observe(viewLifecycleOwner, Observer { connected ->
+                if (connected) {
+                    currentWeatherModel.viewState.observe(viewLifecycleOwner, Observer {
+                        with(it) {
+                            current_city.text = city
+                            current_temperature.text = getString(R.string.temp, temperature)
+                            current_humidity.text = getString(R.string.humidity, humidity)
+                            current_wind.text = getString(R.string.wind, wind)
+                            current_description.text = description
+                            feels_like.text = getString(R.string.feels, feels)
 
-                Glide.with(this@CurrentWeatherFragment)
-                    .load("https://openweathermap.org/img/wn/${icon}@2x.png")
-                    .into(current_icon)
-            }
-        })
+                            Glide.with(this@CurrentWeatherFragment)
+                                .load("https://openweathermap.org/img/wn/${icon}@2x.png")
+                                .into(current_icon)
+                        }
+                    })
+                } else Toast.makeText(context, getString(R.string.no_internet), Toast.LENGTH_SHORT).show()
+            })
     }
 }

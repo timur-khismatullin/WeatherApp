@@ -13,6 +13,7 @@ import ru.voodoo420.weatherapp.R
 import ru.voodoo420.weatherapp.viewmodels.ForecastViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.voodoo420.weatherapp.adapters.ForecastLargerCardsAdapter
+import ru.voodoo420.weatherapp.utils.NetworkUtil
 
 class ForecastLargerCardsFragment : Fragment() {
 
@@ -33,14 +34,22 @@ class ForecastLargerCardsFragment : Fragment() {
     }
 
     private fun initAdapterRecycler() {
-        val adapter = ForecastLargerCardsAdapter()
+        NetworkUtil.getNetworkLiveData(requireContext())
+            .observe(viewLifecycleOwner, Observer { connected ->
+                if (connected) {
+                    val adapter = ForecastLargerCardsAdapter()
+                    forecastViewModel.viewState.observe(viewLifecycleOwner, Observer {
+                        adapter.setData(it)
 
-        forecastViewModel.viewState.observe(viewLifecycleOwner, Observer {
-            adapter.setData(it)
-        })
-
-        larger_cards_recycler.layoutManager = LinearLayoutManager(this.context)
-        larger_cards_recycler.adapter = adapter
-        larger_cards_recycler.postDelayed({ larger_cards_recycler.smoothScrollToPosition(fragmentArgs.pos) }, 500)
+                    })
+                    larger_cards_recycler.layoutManager = LinearLayoutManager(this.context)
+                    larger_cards_recycler.adapter = adapter
+                    larger_cards_recycler.postDelayed({
+                        larger_cards_recycler.smoothScrollToPosition(
+                            fragmentArgs.pos
+                        )
+                    }, 500)
+                }
+            })
     }
 }
