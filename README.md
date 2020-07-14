@@ -1,5 +1,4 @@
 # WeatherApp
-beta (development continues)
 
 ## Api
 [OpenWeatherMap](https://openweathermap.org/api)
